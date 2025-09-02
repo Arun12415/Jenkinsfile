@@ -1,0 +1,28 @@
+{
+  "name": "developer",
+  "version": "1.0.0",
+  "description": "A lightweight Express service for IP address validation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "echo \"No build step required\"",
+    "run": "npm start",
+    "stop": "echo \"Use Ctrl+C or kill the process manually\"",
+    "install": "npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arun12415/jenkins.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Arun12415/jenkins/issues"
+  },
+  "homepage": "https://github.com/Arun12415/jenkins#readme",
+  "author": "Arun Rao",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "ip": "^2.0.1"
+  }
+}
