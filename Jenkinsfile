@@ -2,20 +2,19 @@ pipeline {
   agent {
     docker {
       image 'node:18-alpine'
-      args '-u root:root'
+      args '-u root:root -p 8000:8000'  // port map किया
     }
   }
 
   stages {
-    stage('Build') {
+    stage('Build & Run') {
       steps {
         sh '''
-          ls -l
-          node --version
-          npm --version
           npm install
           npm run build
-          ls -l
+          npm start &   # app को background में run करना
+          sleep 30      # थोड़ा wait, ताकि check हो सके
+          curl http://localhost:8000 || true
         '''
       }
     }

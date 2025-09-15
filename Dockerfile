@@ -6,9 +6,14 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose port
+# Expose app port
 EXPOSE 8000
+
+# Start the app
+CMD ["npm", "start"]
+
