@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:18-alpine'
-      args '-u root:root -p 8000:8000'  // port map किया
+      args '-u root:root -p 8080:8000'  // port map किया
     }
   }
 
@@ -17,6 +17,6 @@ pipeline {
           curl http://localhost:8000 || true
         '''
       }
-    }
+    } 
   }
 }
