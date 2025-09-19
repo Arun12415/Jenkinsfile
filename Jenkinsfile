@@ -1,22 +1,46 @@
-pipeline {
-  agent {
-    docker {
-      image 'node:18-alpine'
-      args '-u root:root -p 8080:8000'  // port map किया
-    }
-  }
+@Library('Shared') _   // Use Shared Library
 
-  stages {
-    stage('Build & Run') {
-      steps {
-        sh '''
-          npm install
-          npm run build
-          npm start &   # app को background में run करना
-          sleep 30      # थोड़ा wait, ताकि check हो सके
-          curl http://localhost:8000 || true
-        '''
-      }
-    } 
-  }
+pipeline {
+    agent { label "Arun" }
+
+    stages {
+        stage("Hello") {
+            steps {
+                script {
+                    hello()
+                }
+            }
+        }
+
+        stage("Code") {
+            steps {
+                script {
+                    clone("https://github.com/Arun12415/Jenkinsfile.git", "master")
+                }
+            }
+        }
+
+        stage("Build") {
+            steps {
+                script {
+                    docker_build("notes-app", "latest", "arunrao12")
+                }
+            }
+        }
+
+        stage("Push to DockerHub") {
+            steps {
+                script {
+                    docker_push("notes-app", "latest", "arunrao12")
+                }
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                echo "This is deploying the code"
+                sh "docker-compose up -d"
+            }
+        }
+    }
 }
